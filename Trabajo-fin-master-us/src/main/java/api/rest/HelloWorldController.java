@@ -12,7 +12,7 @@ public class HelloWorldController {
 	public User hello() {
 		User u=new User();
 		u.setEmail("aaaa");
-		u.setFirstName("aafff");
+		u.setFirstName("aafssssff");
 		u.setLastName("sdf");
 		u.setUserid(1);
 		return u;
