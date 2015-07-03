@@ -1,20 +1,20 @@
 package api.rest;
 
+import java.math.BigDecimal;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import models.User;
+import models.Usuario;
 
 @RestController
 public class HelloWorldController {
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public User hello() {
-		User u=new User();
-		u.setEmail("aaaa");
-		u.setFirstName("aafssssff");
-		u.setLastName("sdsf");
-		u.setUserid(1);
+	public Usuario hello() {
+		Usuario u=new Usuario();
+		u.setId(new BigDecimal(1));
+		u.setNombre("Alexis");
 		return u;
 	}
 
