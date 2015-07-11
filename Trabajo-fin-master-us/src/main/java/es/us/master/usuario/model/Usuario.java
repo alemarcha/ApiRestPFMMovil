@@ -1,4 +1,4 @@
-package models;
+package es.us.master.usuario.model;
 //Generated 03-jul-2015 20:05:13 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;

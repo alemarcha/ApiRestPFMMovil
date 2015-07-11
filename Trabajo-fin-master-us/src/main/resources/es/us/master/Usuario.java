@@ -1,5 +1,5 @@
 package es.us.master;
-// Generated 03-jul-2015 20:05:13 by Hibernate Tools 4.3.1
+// Generated 11-jul-2015 17:01:38 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -30,6 +30,7 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@Id
+
 	@Column(name = "ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getId() {
 		return this.id;
