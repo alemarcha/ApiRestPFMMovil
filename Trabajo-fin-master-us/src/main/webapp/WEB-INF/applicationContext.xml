@@ -3,22 +3,22 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 	<!-- Beans Declaration -->
-	<bean id="Usuario" class="es.us.master.usuario.model.Usuario" />
-	<bean id="Restaurantes" class="es.us.master.restaurantes.model.Restaurantes" />
+	<bean id="Usuario" class="es.us.master.base.usuario.model.Usuario" />
+	<bean id="Restaurantes" class="es.us.master.base.restaurantes.model.Restaurantes" />
 
 	<!-- User Service Declaration -->
-	<bean id="UserService" class="es.us.master.usuario.service.UsuarioService">
+	<bean id="UserService" class="es.us.master.base.usuario.service.UsuarioService">
 		<property name="usuarioDAO" ref="UsuarioDAO" />
 	</bean>
-	<bean id="RestaurantesService" class="es.us.master.restaurantes.service.RestaurantesService">
+	<bean id="RestaurantesService" class="es.us.master.base.restaurantes.service.RestaurantesService">
 		<property name="restaurantesDAO" ref="RestaurantesDAO" />
 	</bean>
 
 	<!-- User DAO Declaration -->
-	<bean id="UsuarioDAO" class="es.us.master.usuario.dao.UsuarioDAO">
+	<bean id="UsuarioDAO" class="es.us.master.base.usuario.dao.UsuarioDAO">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
-	<bean id="RestaurantesDAO" class="es.us.master.restaurantes.dao.RestaurantesDAO">
+	<bean id="RestaurantesDAO" class="es.us.master.base.restaurantes.dao.RestaurantesDAO">
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 	

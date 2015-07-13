@@ -1,4 +1,4 @@
-package api.rest;
+package es.us.master.api.rest.restaurantes.web.services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.us.master.restaurantes.model.HitsDTO;
-import es.us.master.restaurantes.model.RestauranteJSONGeneralDTO;
-import es.us.master.restaurantes.model.Restaurantes;
-import es.us.master.restaurantes.service.IRestaurantesService;
-import es.us.master.usuario.model.Usuario;
-import es.us.master.usuario.service.IUsuarioService;
+import es.us.master.base.restaurantes.model.HitsDTO;
+import es.us.master.base.restaurantes.model.RestauranteJSONGeneralDTO;
+import es.us.master.base.restaurantes.model.Restaurantes;
+import es.us.master.base.restaurantes.service.IRestaurantesService;
+import es.us.master.base.usuario.model.Usuario;
+import es.us.master.base.usuario.service.IUsuarioService;
 
 @RestController
-public class HelloWorldController {
+public class RestaurantesController {
 	@Autowired
 	private IUsuarioService usuarioService;
 	@Autowired
@@ -45,7 +45,7 @@ public class HelloWorldController {
 	
 	@RequestMapping(value = "/restaurantesPorCercaniaLatLong/{lat}/{longitud}/{dist}", method = RequestMethod.GET)
 	public List<Restaurantes> getRestaurantesLatLong(@PathVariable double lat,@PathVariable double longitud, @PathVariable double dist) {
-		return getRestauranteService().getRestaurantesLatLongDistancia(lat,longitud,0);
+		return getRestauranteService().getRestaurantesLatLongDistancia(lat,longitud,dist);
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)

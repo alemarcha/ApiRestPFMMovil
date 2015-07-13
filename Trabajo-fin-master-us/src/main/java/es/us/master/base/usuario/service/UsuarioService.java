@@ -1,11 +1,11 @@
-package es.us.master.usuario.service;
+package es.us.master.base.usuario.service;
 
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import es.us.master.usuario.dao.IUsuarioDAO;
-import es.us.master.usuario.model.Usuario;
+import es.us.master.base.usuario.dao.IUsuarioDAO;
+import es.us.master.base.usuario.model.Usuario;
 
 @Transactional
 public class UsuarioService implements IUsuarioService {
@@ -13,9 +13,6 @@ public class UsuarioService implements IUsuarioService {
 
 	@Override
 	public List<Usuario> getUsers() {
-		
-
-		
 		return usuarioDAO.fetchAll();
 	}
 

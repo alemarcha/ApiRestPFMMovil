@@ -1,4 +1,4 @@
-package Utilidades;
+package es.us.master.utilidades;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

@@ -1,4 +1,4 @@
-package es.us.master.usuario.model;
+package es.us.master.base.usuario.model;
 //Generated 03-jul-2015 20:05:13 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
@@ -14,9 +14,6 @@ import javax.persistence.Table;
 @Table(name = "USUARIO", schema = "C##ALEMARCHA")
 public class Usuario implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4622445748644156283L;
 	private BigDecimal id;
 	private String nombre;
@@ -50,6 +47,31 @@ public class Usuario implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

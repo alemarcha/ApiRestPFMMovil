@@ -1,4 +1,4 @@
-package es.us.master.restaurantes.model;
+package es.us.master.base.restaurantes.model;
 
 import java.math.BigDecimal;
 
@@ -14,9 +14,7 @@ import javax.persistence.Table;
 @Table(name = "RESTAURANTES", schema = "C##ALEMARCHA")
 public class Restaurantes implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -3120644555314391308L;
 	private BigDecimal id;
 	private String description;
@@ -141,6 +139,31 @@ public class Restaurantes implements java.io.Serializable {
 
 	public void setFreetables(BigDecimal freetables) {
 		this.freetables = freetables;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Restaurantes other = (Restaurantes) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }
