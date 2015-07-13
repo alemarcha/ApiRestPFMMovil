@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +37,17 @@ public class HelloWorldController {
 		
 
 	}
+	
+	@RequestMapping(value = "/restaurantes", method = RequestMethod.GET)
+	public List<Restaurantes> getRestaurantes() {
+		return getRestauranteService().getRestaurantes();
+	}
+	
+	@RequestMapping(value = "/restaurantesPorCercaniaLatLong/{lat}/{longitud}/{dist}", method = RequestMethod.GET)
+	public List<Restaurantes> getRestaurantesLatLong(@PathVariable double lat,@PathVariable double longitud, @PathVariable double dist) {
+		return getRestauranteService().getRestaurantesLatLongDistancia(lat,longitud,0);
+	}
+	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public void addRestaurants(){
 		BufferedReader reader = null;
