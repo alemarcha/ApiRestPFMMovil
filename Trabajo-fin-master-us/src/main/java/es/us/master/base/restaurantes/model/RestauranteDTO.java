@@ -18,7 +18,7 @@ public class RestauranteDTO {
 	@JsonProperty("locale")
 	public String locale;
 	@JsonProperty("freeTables")
-	public BigDecimal freeTables;
+	public BigDecimal freetables;
 	@JsonProperty("name")
 	public String name;
 	@JsonProperty("phone")
@@ -90,13 +90,7 @@ public class RestauranteDTO {
 		this.locale = locale;
 	}
 
-	public BigDecimal getFreeTables() {
-		return freeTables;
-	}
-
-	public void setFreeTables(BigDecimal freeTables) {
-		this.freeTables = freeTables;
-	}
+	
 
 	@Override
 	public int hashCode() {
@@ -121,6 +115,14 @@ public class RestauranteDTO {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getFreetables() {
+		return freetables;
+	}
+
+	public void setFreetables(BigDecimal freetables) {
+		this.freetables = freetables;
 	}
 
 }

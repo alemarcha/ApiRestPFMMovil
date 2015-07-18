@@ -1,19 +1,27 @@
 package es.us.master.api.rest.restaurantes.web.services;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.us.master.base.restaurantes.model.HitsDTO;
@@ -49,26 +57,25 @@ public class RestaurantesController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public void addRestaurants(){
+	public void addRestaurants(@RequestParam Integer size){
 		BufferedReader reader = null;
 	    	URL url;
 			try {
-				url = new URL("http://jesusvargas.ddns.net:8082/restaurants?size=130000&loc=37,-1&distance=200000km");
-				reader = new BufferedReader(new InputStreamReader(url.openStream()));
-		        StringBuffer buffer = new StringBuffer();
-		        int read;
-		        char[] chars = new char[1024];
-		        while ((read = reader.read(chars)) != -1)
-		            buffer.append(chars, 0, read); 
+				//TODO guardar en un json los restaurantes para el día que borre la bd
+				// incluir los avg_rate
+				url = new URL("http://jesusvargas.ddns.net:8082/restaurants?size="+size+"&loc=37,-1&distance=200000km");
+
 		        ObjectMapper mapper = new ObjectMapper();
+		 
 		        
 				RestauranteJSONGeneralDTO r=mapper.readValue(url, RestauranteJSONGeneralDTO.class);
 				Restaurantes restaurante=new Restaurantes();
 				for (HitsDTO h : r.hits) {
 					BeanUtils.copyProperties(h.get_source(), restaurante);
 					String []latLong=h.get_source().locale.split(",");
-					restaurante.setLatitud(latLong[0]);
-					restaurante.setLongitud(latLong[1]);
+					restaurante.setLatitud(Double.valueOf( latLong[0]));
+					restaurante.setLongitud(Double.valueOf(latLong[1]));
+					restaurante.setIdentificador(h.get_source().getId());
 					getRestauranteService().nuevoRestaurante(restaurante);
 				}
 				
@@ -85,6 +92,47 @@ public class RestaurantesController {
 	   
 		
 		
+	}
+	
+	
+	@RequestMapping(value = "/addFromFile", method = RequestMethod.GET)
+	public void addRestaurantsFromFile(){
+		BufferedReader reader = null;
+	    	URL url;
+			
+				//TODO guardar en un json los restaurantes para el día que borre la bd
+				// incluir los avg_rate
+				
+		        File f= new File("/Users/alemarcha26/Desktop/json/file2.json");
+		        ObjectMapper mapper = new ObjectMapper();
+		       
+		        RestauranteJSONGeneralDTO r;
+				try {
+					r = mapper.readValue(f, RestauranteJSONGeneralDTO.class);
+					Restaurantes restaurante=new Restaurantes();
+					for (HitsDTO h : r.hits) {
+						BeanUtils.copyProperties(h.get_source(), restaurante);
+						String []latLong=h.get_source().locale.split(",");
+						restaurante.setLatitud(Double.valueOf( latLong[0]));
+						restaurante.setLongitud(Double.valueOf(latLong[1]));
+						//getRestauranteService().nuevoRestaurante(restaurante);
+					}
+					
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        
+				
+				
+			
+			 
 	}
 	
 	public IUsuarioService getUsuarioService() {

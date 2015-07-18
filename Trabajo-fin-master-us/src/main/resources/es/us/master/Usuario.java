@@ -1,5 +1,5 @@
 package es.us.master;
-// Generated 11-jul-2015 17:01:38 by Hibernate Tools 4.3.1
+// Generated 18-jul-2015 11:44:07 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import javax.persistence.Column;

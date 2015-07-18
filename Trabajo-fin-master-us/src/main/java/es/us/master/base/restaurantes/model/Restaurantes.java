@@ -20,12 +20,13 @@ public class Restaurantes implements java.io.Serializable {
 	private String description;
 	private BigDecimal avgRate;
 	private String hourOpen;
-	private String latitud;
-	private String longitud;
+	private Double latitud;
+	private Double longitud;
 	private String name;
 	private String phone;
 	private String speciality;
 	private BigDecimal freetables;
+	private String identificador;
 
 	public Restaurantes() {
 	}
@@ -34,8 +35,9 @@ public class Restaurantes implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Restaurantes(BigDecimal id, String description, BigDecimal avgRate, String hourOpen, String latitud,
-			String longitud, String name, String phone, String speciality, BigDecimal freetables) {
+	public Restaurantes(BigDecimal id, String description, BigDecimal avgRate, String hourOpen, Double latitud,
+			Double longitud, String name, String phone, String speciality, BigDecimal freetables,
+			String identificador) {
 		this.id = id;
 		this.description = description;
 		this.avgRate = avgRate;
@@ -46,6 +48,7 @@ public class Restaurantes implements java.io.Serializable {
 		this.phone = phone;
 		this.speciality = speciality;
 		this.freetables = freetables;
+		this.identificador = identificador;
 	}
 
 	@Id
@@ -87,21 +90,21 @@ public class Restaurantes implements java.io.Serializable {
 		this.hourOpen = hourOpen;
 	}
 
-	@Column(name = "LATITUD", length = 100)
-	public String getLatitud() {
+	@Column(name = "LATITUD", precision = 126, scale = 0)
+	public Double getLatitud() {
 		return this.latitud;
 	}
 
-	public void setLatitud(String latitud) {
+	public void setLatitud(Double latitud) {
 		this.latitud = latitud;
 	}
 
-	@Column(name = "LONGITUD", length = 100)
-	public String getLongitud() {
+	@Column(name = "LONGITUD", precision = 126, scale = 0)
+	public Double getLongitud() {
 		return this.longitud;
 	}
 
-	public void setLongitud(String longitud) {
+	public void setLongitud(Double longitud) {
 		this.longitud = longitud;
 	}
 
@@ -139,6 +142,15 @@ public class Restaurantes implements java.io.Serializable {
 
 	public void setFreetables(BigDecimal freetables) {
 		this.freetables = freetables;
+	}
+	
+	@Column(name = "IDENTIFICADOR", length = 200)
+	public String getIdentificador() {
+		return this.identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
 	}
 
 	@Override
