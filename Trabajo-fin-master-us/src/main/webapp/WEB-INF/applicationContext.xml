@@ -22,15 +22,17 @@
 		<property name="sessionFactory" ref="SessionFactory" />
 	</bean>
 	
-	<bean id="dataSource" class="oracle.jdbc.pool.OracleConnectionPoolDataSource">
-		<property name="URL" value="jdbc:oracle:thin:@localhost:1521:cdb1" />
-		<property name="user" value="c##alemarcha" />
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" >
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:cdb1" />
+		<property name="username" value="c##alemarcha" />
 		<property name="password" value="oracle" />
+		 <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
 	</bean>
 	<bean id="SessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" >
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="es.us.master" />
+		
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>

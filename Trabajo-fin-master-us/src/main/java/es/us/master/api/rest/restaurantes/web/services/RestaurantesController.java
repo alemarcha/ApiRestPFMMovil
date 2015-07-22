@@ -53,7 +53,8 @@ public class RestaurantesController {
 	
 	@RequestMapping(value = "/restaurantesPorCercaniaLatLong/{lat}/{longitud}/{dist}", method = RequestMethod.GET)
 	public List<Restaurantes> getRestaurantesLatLong(@PathVariable double lat,@PathVariable double longitud, @PathVariable double dist) {
-		return getRestauranteService().getRestaurantesLatLongDistancia(lat,longitud,dist);
+		List<Restaurantes> r=getRestauranteService().getRestaurantesLatLongDistancia(lat,longitud,dist);
+		return r;
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -70,13 +71,17 @@ public class RestaurantesController {
 		        
 				RestauranteJSONGeneralDTO r=mapper.readValue(url, RestauranteJSONGeneralDTO.class);
 				Restaurantes restaurante=new Restaurantes();
+				int i=0;
 				for (HitsDTO h : r.hits) {
 					BeanUtils.copyProperties(h.get_source(), restaurante);
 					String []latLong=h.get_source().locale.split(",");
 					restaurante.setLatitud(Double.valueOf( latLong[0]));
 					restaurante.setLongitud(Double.valueOf(latLong[1]));
 					restaurante.setIdentificador(h.get_source().getId());
+					
 					getRestauranteService().nuevoRestaurante(restaurante);
+					i++;
+					System.out.println(i);
 				}
 				
 				System.out.println("fin");
@@ -103,19 +108,23 @@ public class RestaurantesController {
 				//TODO guardar en un json los restaurantes para el día que borre la bd
 				// incluir los avg_rate
 				
-		        File f= new File("/Users/alemarcha26/Desktop/json/file2.json");
+		        File f= new File("/Users/alemarcha26/Desktop/gitapi/Trabajo-fin-master-us/RecursosExternos/estesi.json");
 		        ObjectMapper mapper = new ObjectMapper();
 		       
 		        RestauranteJSONGeneralDTO r;
 				try {
 					r = mapper.readValue(f, RestauranteJSONGeneralDTO.class);
 					Restaurantes restaurante=new Restaurantes();
+					int i=0;
 					for (HitsDTO h : r.hits) {
 						BeanUtils.copyProperties(h.get_source(), restaurante);
 						String []latLong=h.get_source().locale.split(",");
 						restaurante.setLatitud(Double.valueOf( latLong[0]));
 						restaurante.setLongitud(Double.valueOf(latLong[1]));
-						//getRestauranteService().nuevoRestaurante(restaurante);
+						restaurante.setIdentificador(h.get_source().getId());
+						getRestauranteService().nuevoRestaurante(restaurante);
+						i++;
+						System.out.println(i);
 					}
 					
 				} catch (JsonParseException e) {
