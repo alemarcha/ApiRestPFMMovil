@@ -17,20 +17,19 @@ public class Usuario implements java.io.Serializable {
 	private static final long serialVersionUID = -4622445748644156283L;
 	private BigDecimal id;
 	private String nombre;
+	private String password;
 
 	public Usuario() {
 	}
 
-	public Usuario(BigDecimal id) {
-		this.id = id;
-	}
-
-	public Usuario(BigDecimal id, String nombre) {
+	public Usuario(BigDecimal id, String nombre, String password) {
 		this.id = id;
 		this.nombre = nombre;
+		this.password = password;
 	}
 
 	@Id
+
 	@Column(name = "ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getId() {
 		return this.id;
@@ -40,7 +39,7 @@ public class Usuario implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "NOMBRE", length = 45)
+	@Column(name = "NOMBRE", nullable = false, length = 45)
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -48,6 +47,16 @@ public class Usuario implements java.io.Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	@Column(name = "PASSWORD", nullable = false, length = 120)
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 	@Override
 	public int hashCode() {

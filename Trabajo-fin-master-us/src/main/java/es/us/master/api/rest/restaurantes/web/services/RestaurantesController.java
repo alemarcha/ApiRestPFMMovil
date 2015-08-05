@@ -2,14 +2,10 @@ package es.us.master.api.rest.restaurantes.web.services;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.us.master.base.restaurantes.model.HitsDTO;
 import es.us.master.base.restaurantes.model.RestauranteJSONGeneralDTO;
 import es.us.master.base.restaurantes.model.Restaurantes;
 import es.us.master.base.restaurantes.service.IRestaurantesService;
-import es.us.master.base.usuario.model.Usuario;
-import es.us.master.base.usuario.service.IUsuarioService;
 
 @RestController
 public class RestaurantesController {
-	@Autowired
-	private IUsuarioService usuarioService;
+	
 	@Autowired
 	private IRestaurantesService restauranteService;
-	
-	
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public List<Usuario> hello() {
-		return getUsuarioService().getUsers();
-		
-
-	}
 	
 	@RequestMapping(value = "/restaurantes", method = RequestMethod.GET)
 	public List<Restaurantes> getRestaurantes() {
@@ -144,13 +128,7 @@ public class RestaurantesController {
 			 
 	}
 	
-	public IUsuarioService getUsuarioService() {
-		return usuarioService;
-	}
-	public void setUsuarioService(IUsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
-	}
-
+	
 	public IRestaurantesService getRestauranteService() {
 		return restauranteService;
 	}

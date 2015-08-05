@@ -10,5 +10,7 @@ public interface IUsuarioService {
 	 * Devuelve todos los usuarios de la base de datos.
 	 * @return
 	 */
-	public List<Usuario> getUsers();
+	List<Usuario> getUsers();
+	
+	Usuario getLogin(String usuario, String contrasena);
 }

@@ -1,5 +1,5 @@
 package es.us.master;
-// Generated 18-jul-2015 11:44:07 by Hibernate Tools 4.3.1
+// Generated 05-ago-2015 15:09:36 by Hibernate Tools 4.3.1
 
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -16,17 +16,15 @@ public class Usuario implements java.io.Serializable {
 
 	private BigDecimal id;
 	private String nombre;
+	private String password;
 
 	public Usuario() {
 	}
 
-	public Usuario(BigDecimal id) {
-		this.id = id;
-	}
-
-	public Usuario(BigDecimal id, String nombre) {
+	public Usuario(BigDecimal id, String nombre, String password) {
 		this.id = id;
 		this.nombre = nombre;
+		this.password = password;
 	}
 
 	@Id
@@ -40,13 +38,22 @@ public class Usuario implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "NOMBRE", length = 45)
+	@Column(name = "NOMBRE", nullable = false, length = 45)
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Column(name = "PASSWORD", nullable = false, length = 120)
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
