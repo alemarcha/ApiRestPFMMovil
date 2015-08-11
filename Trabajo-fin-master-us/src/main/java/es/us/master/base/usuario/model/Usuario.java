@@ -4,7 +4,10 @@ package es.us.master.base.usuario.model;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -29,7 +32,8 @@ public class Usuario implements java.io.Serializable {
 	}
 
 	@Id
-
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq_gen")
+	@SequenceGenerator(name = "my_seq_gen", sequenceName = "sequence_usuario")
 	@Column(name = "ID", unique = true, nullable = false, precision = 22, scale = 0)
 	public BigDecimal getId() {
 		return this.id;

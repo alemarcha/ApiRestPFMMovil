@@ -18,12 +18,18 @@ public class UsuarioService implements IUsuarioService {
 	public List<Usuario> getUsers() {
 		return usuarioDAO.fetchAll();
 	}
-	
-	public Usuario getLogin(String usuario, String contrasena){
+
+	public Usuario getLogin(String usuario, String contrasena) {
 		Search criterio = new Search(Usuario.class);
 		criterio.addFilterEqual("nombre", usuario);
-		criterio.addFilterEqual("password", contrasena);
-		return (Usuario)usuarioDAO.searchUnique(criterio);
+		if (contrasena != null) {
+			criterio.addFilterEqual("password", contrasena);
+		}
+		return (Usuario) usuarioDAO.searchUnique(criterio);
+	}
+
+	public boolean addUser(Usuario usuario) {
+		return usuarioDAO.createOrUpdate(usuario);
 	}
 
 	public IUsuarioDAO getUsuarioDAO() {

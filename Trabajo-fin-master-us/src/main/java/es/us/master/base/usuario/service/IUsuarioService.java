@@ -13,4 +13,6 @@ public interface IUsuarioService {
 	List<Usuario> getUsers();
 	
 	Usuario getLogin(String usuario, String contrasena);
+	
+	boolean addUser(Usuario usuario);
 }
