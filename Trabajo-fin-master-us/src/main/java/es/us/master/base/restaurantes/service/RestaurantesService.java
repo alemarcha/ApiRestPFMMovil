@@ -2,6 +2,8 @@ package es.us.master.base.restaurantes.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.googlecode.genericdao.search.Search;
@@ -10,7 +12,10 @@ import es.us.master.base.restaurantes.dao.IRestaurantesDAO;
 import es.us.master.base.restaurantes.model.Restaurantes;
 
 @Transactional
+@Service
 public class RestaurantesService implements IRestaurantesService {
+	
+	@Autowired
 	IRestaurantesDAO restaurantesDAO;
 
 	public void nuevoRestaurante(Restaurantes e) {

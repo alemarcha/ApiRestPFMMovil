@@ -1,6 +1,5 @@
 package es.us.master.api.rest.restaurantes.web.services;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -26,115 +25,97 @@ import es.us.master.base.restaurantes.service.IRestaurantesService;
 
 @RestController
 public class RestaurantesController {
-	
-	@Autowired
-	private IRestaurantesService restauranteService;
-	
-	@RequestMapping(value = "/restaurantes", method = RequestMethod.GET)
-	public List<Restaurantes> getRestaurantes() {
-		return getRestauranteService().getRestaurantes();
-	}
-	
-	@RequestMapping(value = "/restaurantesPorCercaniaLatLong/{lat}/{longitud}/{dist}", method = RequestMethod.GET)
-	public List<Restaurantes> getRestaurantesLatLong(@PathVariable double lat,@PathVariable double longitud, @PathVariable double dist) {
-		List<Restaurantes> r=getRestauranteService().getRestaurantesLatLongDistancia(lat,longitud,dist);
-		return r;
-	}
-	
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public void addRestaurants(@RequestParam Integer size){
-		BufferedReader reader = null;
-	    	URL url;
-			try {
-				//TODO guardar en un json los restaurantes para el día que borre la bd
-				// incluir los avg_rate
-				url = new URL("http://jesusvargas.ddns.net:8082/restaurants?size="+size+"&loc=37,-1&distance=200000km");
 
-		        ObjectMapper mapper = new ObjectMapper();
-		 
-		        
-				RestauranteJSONGeneralDTO r=mapper.readValue(url, RestauranteJSONGeneralDTO.class);
-				Restaurantes restaurante=new Restaurantes();
-				int i=0;
-				for (HitsDTO h : r.hits) {
-					BeanUtils.copyProperties(h.get_source(), restaurante);
-					String []latLong=h.get_source().locale.split(",");
-					restaurante.setLatitud(Double.valueOf( latLong[0]));
-					restaurante.setLongitud(Double.valueOf(latLong[1]));
-					restaurante.setIdentificador(h.get_source().getId());
-					
-					getRestauranteService().nuevoRestaurante(restaurante);
-					i++;
-					System.out.println(i);
-				}
-				
-				System.out.println("fin");
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			 
-	        
-	   
-		
-		
-	}
-	
-	
-	@RequestMapping(value = "/addFromFile", method = RequestMethod.GET)
-	public void addRestaurantsFromFile(){
-		BufferedReader reader = null;
-	    	URL url;
-			
-				//TODO guardar en un json los restaurantes para el día que borre la bd
-				// incluir los avg_rate
-				
-		        File f= new File("/Users/alemarcha26/Desktop/gitapi/Trabajo-fin-master-us/RecursosExternos/estesi.json");
-		        ObjectMapper mapper = new ObjectMapper();
-		       
-		        RestauranteJSONGeneralDTO r;
-				try {
-					r = mapper.readValue(f, RestauranteJSONGeneralDTO.class);
-					Restaurantes restaurante=new Restaurantes();
-					int i=0;
-					for (HitsDTO h : r.hits) {
-						BeanUtils.copyProperties(h.get_source(), restaurante);
-						String []latLong=h.get_source().locale.split(",");
-						restaurante.setLatitud(Double.valueOf( latLong[0]));
-						restaurante.setLongitud(Double.valueOf(latLong[1]));
-						restaurante.setIdentificador(h.get_source().getId());
-						getRestauranteService().nuevoRestaurante(restaurante);
-						i++;
-						System.out.println(i);
-					}
-					
-				} catch (JsonParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		        
-				
-				
-			
-			 
-	}
-	
-	
-	public IRestaurantesService getRestauranteService() {
-		return restauranteService;
+    @Autowired
+    private IRestaurantesService restauranteService;
+
+    @RequestMapping(value = "/restaurantes", method = RequestMethod.GET)
+    public List<Restaurantes> getRestaurantes() {
+	return getRestauranteService().getRestaurantes();
+    }
+
+    @RequestMapping(value = "/restaurantesPorCercaniaLatLong/{lat}/{longitud}/{dist}", method = RequestMethod.GET)
+    public List<Restaurantes> getRestaurantesLatLong(@PathVariable double lat, @PathVariable double longitud,
+	    @PathVariable double dist) {
+	List<Restaurantes> r = getRestauranteService().getRestaurantesLatLongDistancia(lat, longitud, dist);
+	return r;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public void addRestaurants(@RequestParam Integer size) {
+	URL url;
+	try {
+	    url = new URL("http://jesusvargas.ddns.net:8082/restaurants?size=" + size + "&loc=37,-1&distance=200000km");
+
+	    ObjectMapper mapper = new ObjectMapper();
+
+	    RestauranteJSONGeneralDTO r = mapper.readValue(url, RestauranteJSONGeneralDTO.class);
+	    Restaurantes restaurante = new Restaurantes();
+	    int i = 0;
+	    for (HitsDTO h : r.hits) {
+		BeanUtils.copyProperties(h.get_source(), restaurante);
+		String[] latLong = h.get_source().locale.split(",");
+		restaurante.setLatitud(Double.valueOf(latLong[0]));
+		restaurante.setLongitud(Double.valueOf(latLong[1]));
+		restaurante.setIdentificador(h.get_source().getId());
+
+		getRestauranteService().nuevoRestaurante(restaurante);
+		i++;
+		System.out.println(i);
+	    }
+
+	    System.out.println("fin");
+	} catch (MalformedURLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
 
-	public void setRestauranteService(IRestaurantesService restauranteService) {
-		this.restauranteService = restauranteService;
+    }
+
+    @RequestMapping(value = "/addFromFile", method = RequestMethod.GET)
+    public void addRestaurantsFromFile() {
+
+	File f = new File("/Users/alemarcha26/Desktop/gitapi/Trabajo-fin-master-us/RecursosExternos/estesi.json");
+	ObjectMapper mapper = new ObjectMapper();
+
+	RestauranteJSONGeneralDTO r;
+	try {
+	    r = mapper.readValue(f, RestauranteJSONGeneralDTO.class);
+	    Restaurantes restaurante = new Restaurantes();
+	    int i = 0;
+	    for (HitsDTO h : r.hits) {
+		BeanUtils.copyProperties(h.get_source(), restaurante);
+		String[] latLong = h.get_source().locale.split(",");
+		restaurante.setLatitud(Double.valueOf(latLong[0]));
+		restaurante.setLongitud(Double.valueOf(latLong[1]));
+		restaurante.setIdentificador(h.get_source().getId());
+		getRestauranteService().nuevoRestaurante(restaurante);
+		i++;
+		System.out.println(i);
+	    }
+
+	} catch (JsonParseException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (JsonMappingException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
+
+    }
+
+    public IRestaurantesService getRestauranteService() {
+	return restauranteService;
+    }
+
+    public void setRestauranteService(IRestaurantesService restauranteService) {
+	this.restauranteService = restauranteService;
+    }
 
 }

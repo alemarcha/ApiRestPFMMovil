@@ -28,7 +28,7 @@
         </listener-class>
       </listener>
       
-      <!-- Project Stage Level -->
+      <!-- Configuracion para api rest -->
        <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
         <servlet-class>

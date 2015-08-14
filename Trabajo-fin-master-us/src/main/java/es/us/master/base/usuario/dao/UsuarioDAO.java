@@ -6,6 +6,4 @@ import es.us.master.base.usuario.model.Usuario;
 
 public class UsuarioDAO extends GenericDAOImpl<Usuario, Integer> implements IUsuarioDAO {
 	
-
-	
 }
