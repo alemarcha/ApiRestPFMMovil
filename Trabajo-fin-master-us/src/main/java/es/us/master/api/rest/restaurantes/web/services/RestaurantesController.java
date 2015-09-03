@@ -78,7 +78,7 @@ public class RestaurantesController {
     @RequestMapping(value = "/addFromFile", method = RequestMethod.GET)
     public void addRestaurantsFromFile() {
 
-	File f = new File("/Users/alemarcha26/Desktop/gitapi/Trabajo-fin-master-us/RecursosExternos/estesi.json");
+	File f = new File("/Users/alemarcha26/Desktop/gitapi/Trabajo-fin-master-us/RecursosExternos/datosRestaurantes.json");
 	ObjectMapper mapper = new ObjectMapper();
 
 	RestauranteJSONGeneralDTO r;
